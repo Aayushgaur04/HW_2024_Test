@@ -49,7 +49,6 @@ public class PulpitManager : MonoBehaviour {
     {
         isSpawningNext = true;
         float timeRemaining = platformDuration - Time.timeSinceLevelLoad;
-        // Wait some time before starting the spawning process (e.g., 1 second)
         yield return new WaitForSeconds(timeRemaining - 2.5f);
 
         if (currentPlatform != null)
@@ -60,7 +59,7 @@ public class PulpitManager : MonoBehaviour {
             StartCoroutine(PlatformLifecycle(nextPlatform));
         }
 
-        yield return new WaitForSeconds(2.5f); // Allow some time before switching the platform
+        yield return new WaitForSeconds(2.5f);
 
         if (nextPlatform != null)
         {
