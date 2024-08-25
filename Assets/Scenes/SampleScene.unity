@@ -183,7 +183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 125a8d26f5a8b61419d5688998620e02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -223,7 +223,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.45, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -345,6 +345,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -419,13 +420,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.37407017, y: -0.008069277, z: 0.0032603666, w: -0.9273596}
-  m_LocalPosition: {x: -0.14458582, y: 6.1933947, z: -6.98538}
+  m_LocalRotation: {x: -0.29722807, y: 0.011169562, z: -0.0034710388, w: -0.9547349}
+  m_LocalPosition: {x: -0.2590251, y: 6.119294, z: -8.203434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833d9e4eab1f8d94eb9066c2f279ece7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 32654528}
+  smoothTime: 0
 --- !u!1 &1066678375
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,11 +470,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750b27dbf3499e41ba388c86c0bb646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pulpitPrefab: {fileID: 5871104448440146321, guid: 64d7bb553da7eb645ab81820a574dce6, type: 3}
+  platformPrefab: {fileID: 5871104448440146321, guid: 64d7bb553da7eb645ab81820a574dce6, type: 3}
   player: {fileID: 32654528}
-  pulpitXSize: 9
-  pulpitZSize: 9
-  pulpitYSize: 0.2
+  platformXSize: 9
+  platformZSize: 9
+  platformYSize: 0.2
+  platformDuration: 0
 --- !u!4 &1066678377
 Transform:
   m_ObjectHideFlags: 0

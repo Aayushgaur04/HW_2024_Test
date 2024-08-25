@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Movement : MonoBehaviour
 {
     private CharacterController controller;
     private Vector3 playerVelocity;
-    private float playerSpeed = 3.0f;
+    private float playerSpeed = 5.0f;
     private float gravityValue = -9.81f;
     // Start is called before the first frame update
     void Start()

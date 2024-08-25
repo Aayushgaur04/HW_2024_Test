@@ -4,73 +4,90 @@ using UnityEngine;
 
 public class PulpitManager : MonoBehaviour {
 
-    public GameObject pulpitPrefab;
+    public GameObject platformPrefab;
     public Transform player;
-    public float pulpitXSize = 9f;
-    public float pulpitZSize = 9f;
-    public float pulpitYSize = 0.2f;
+    public float platformXSize = 9f;
+    public float platformZSize = 9f;
+    public float platformYSize = 0.2f;
 
-    private GameObject currentPulpit;
-    private GameObject nextPulpit;
+    private GameObject currentPlatform;
+    private GameObject nextPlatform;
     private bool isSpawningNext = false;
+
+    public float platformDuration;
+
+    void Awake()
+    {
+        platformDuration = Random.Range(4f, 5f);
+    }
 
     void Start()
     {
-        currentPulpit = SpawnPulpit(Vector3.zero);
-        StartCoroutine(PulpitLifecycle(currentPulpit));
+        currentPlatform = SpawnPlatform(Vector3.zero);
+        StartCoroutine(PlatformLifecycle(currentPlatform));
     }
 
     void Update()
     {
-        if (nextPulpit == null && !isSpawningNext && currentPulpit != null)
+        if (currentPlatform != null && !isSpawningNext)
         {
-            StartCoroutine(SpawnNextPulpit());
+            StartCoroutine(SpawnNextPlatform());
         }
     }
 
-    IEnumerator PulpitLifecycle(GameObject pulpit)
+    IEnumerator PlatformLifecycle(GameObject platform)
     {
-        float pulpitDuration = Random.Range(4f, 5f);
+        yield return new WaitForSeconds(platformDuration);
 
-        yield return new WaitForSeconds(pulpitDuration);
-
-        Destroy(pulpit);
+        if (platform != null)
+        {
+            Destroy(platform);
+        }
     }
 
-    IEnumerator SpawnNextPulpit()
+    IEnumerator SpawnNextPlatform()
     {
         isSpawningNext = true;
+        float timeRemaining = platformDuration - Time.timeSinceLevelLoad;
+        // Wait some time before starting the spawning process (e.g., 1 second)
+        yield return new WaitForSeconds(timeRemaining - 2.5f);
 
-        yield return new WaitForSeconds(1.5f);
+        if (currentPlatform != null)
+        {
+            Vector3 spawnPosition = GetRandomAdjacentPosition(currentPlatform.transform.position);
+            nextPlatform = SpawnPlatform(spawnPosition);
 
-        Vector3 spawnPosition = GetRandomAdjacentPosition(currentPulpit.transform.position);
-        nextPulpit = SpawnPulpit(spawnPosition);
+            StartCoroutine(PlatformLifecycle(nextPlatform));
+        }
 
-        StartCoroutine(PulpitLifecycle(nextPulpit));
+        yield return new WaitForSeconds(2.5f); // Allow some time before switching the platform
 
-        yield return new WaitForSeconds(2.5f);
+        if (nextPlatform != null)
+        {
+            currentPlatform = nextPlatform;
+            nextPlatform = null;
+            isSpawningNext = false;
+        }
 
-        currentPulpit = nextPulpit;
-        nextPulpit = null;
-        isSpawningNext = false;
+        
     }
 
     Vector3 GetRandomAdjacentPosition(Vector3 currentPos)
     {
         Vector3[] directions = new Vector3[]
         {
-            new Vector3(pulpitXSize, 0, 0),
-            new Vector3(-pulpitXSize, 0, 0),
-            new Vector3(0, 0, pulpitZSize),
-            new Vector3(0, 0, -pulpitZSize)
+            new Vector3(platformXSize, 0, 0),
+            new Vector3(-platformXSize, 0, 0),
+            new Vector3(0, 0, platformZSize),
+            new Vector3(0, 0, -platformZSize)
         };
 
         int randomIndex = Random.Range(0, directions.Length);
         return currentPos + directions[randomIndex];
     }
 
-    GameObject SpawnPulpit(Vector3 position)
+    GameObject SpawnPlatform(Vector3 position)
     {
-        return Instantiate(pulpitPrefab, position, Quaternion.identity);
+        return Instantiate(platformPrefab, position, Quaternion.identity);
     }
 }
