@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: d750b27dbf3499e41ba388c86c0bb646
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pulpitPrefab: {fileID: 5871104448440146321, guid: 64d7bb553da7eb645ab81820a574dce6, type: 3}
+  - player: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
