@@ -6,7 +6,6 @@ public class PlatformTrigger : MonoBehaviour
 
     void Start()
     {
-        // Reset the flag when the platform is spawned
         playerOnPlatform = false;
     }
 
@@ -14,10 +13,8 @@ public class PlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player") && !playerOnPlatform)
         {
-            // The player successfully reached the platform
             playerOnPlatform = true;
 
-            // Increment the score only once when the player reaches the platform
             ScoreManager.instance.IncrementScore();
         }
     }
@@ -26,7 +23,6 @@ public class PlatformTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Allow scoring again when the player leaves the platform (for future platforms)
             playerOnPlatform = false;
         }
     }

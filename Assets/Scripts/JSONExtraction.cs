@@ -47,7 +47,7 @@ public class JSONExtraction : MonoBehaviour
 
             Debug.Log("Data loaded successfully");
 
-            UpdateData();
+            //UpdateData();
         }
         else
         {
@@ -55,18 +55,18 @@ public class JSONExtraction : MonoBehaviour
         }
     }
 
-    private void UpdateData()
-    {
-        if (jsonData != null)
-        {
-            Debug.Log("Player Speed: " + jsonData.player_data.speed);
-            Debug.Log("Min destroy Time: " + jsonData.pulpit_data.min_pulpit_destroy_time);
-            Debug.Log("Max destroy Time: " + jsonData.pulpit_data.max_pulpit_destroy_time);
-            Debug.Log("Spawn Time: " + jsonData.pulpit_data.pulpit_spawn_time);
-        }
-        else
-        {
-            Debug.LogError("Failed to load data");
-        }
-    }
+    //private void UpdateData()
+    //{
+    //    if (jsonData != null)
+    //    {
+    //        Debug.Log("Player Speed: " + jsonData.player_data.speed);
+    //        Debug.Log("Min destroy Time: " + jsonData.pulpit_data.min_pulpit_destroy_time);
+    //        Debug.Log("Max destroy Time: " + jsonData.pulpit_data.max_pulpit_destroy_time);
+    //        Debug.Log("Spawn Time: " + jsonData.pulpit_data.pulpit_spawn_time);
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Failed to load data");
+    //    }
+    //}
 }

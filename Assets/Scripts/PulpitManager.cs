@@ -1,28 +1,24 @@
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class PulpitManager : MonoBehaviour
 {
-    public GameObject platformPrefab;
-    public float platformXSize = 9f;
-    public float platformZSize = 9f;
-    public float platformYSize = 0.2f;
+    public GameObject pulpitPrefab;
+    public float pulpitXSize = 9f;
+    public float pulpitZSize = 9f;
+    public float pulpitYSize = 0.2f;
 
     private JSONExtraction jsonExtraction;
-    private GameObject currentPlatform;
-    private GameObject nextPlatform;
+    private GameObject currentPulpit;
+    private GameObject nextPulpit;
     private bool isSpawningNext = false;
 
-    public float platformDuration;
+    public float pulpitDuration;
     private float maxDestroyTime;
     private float minDestroyTime;
     private float spawnTime;
 
     private Vector3 previousDirection;
-
-    //[SerializeField] TextMeshPro timerText;
-    //float remainingTime;
 
     void Start()
     {
@@ -43,58 +39,51 @@ public class PulpitManager : MonoBehaviour
         maxDestroyTime = data.pulpit_data.max_pulpit_destroy_time;
         spawnTime = data.pulpit_data.pulpit_spawn_time;
 
-        platformDuration = Random.Range(minDestroyTime, maxDestroyTime);
+        pulpitDuration = Random.Range(minDestroyTime, maxDestroyTime);
 
-        //remainingTime = platformDuration;
-
-        currentPlatform = SpawnPlatform(Vector3.zero);
-        StartCoroutine(PlatformLifecycle(currentPlatform));
+        currentPulpit = SpawnPulpit(Vector3.zero);
+        StartCoroutine(PulpitLifecycle(currentPulpit));
     }
 
     void Update()
     {
-        //remainingTime -= Time.deltaTime;
-        //if (timerText != null)
-        //{
-        //    timerText.text = remainingTime.ToString("F2");
-        //}
 
-        if (currentPlatform != null && !isSpawningNext)
+        if (currentPulpit != null && !isSpawningNext)
         {
-            StartCoroutine(SpawnNextPlatform());
+            StartCoroutine(SpawnNextPulpit());
         }
     }
 
-    IEnumerator PlatformLifecycle(GameObject platform)
+    IEnumerator PulpitLifecycle(GameObject pulpit)
     {
-        yield return new WaitForSeconds(platformDuration);
+        yield return new WaitForSeconds(pulpitDuration);
 
-        if (platform != null)
+        if (pulpit != null)
         {
-            Destroy(platform);
+            Destroy(pulpit);
         }
     }
 
-    IEnumerator SpawnNextPlatform()
+    IEnumerator SpawnNextPulpit()
     {
         isSpawningNext = true;
-        float timeRemaining = platformDuration - Time.timeSinceLevelLoad;
+        float timeRemaining = pulpitDuration - Time.timeSinceLevelLoad;
         yield return new WaitForSeconds(timeRemaining - spawnTime);
 
-        if (currentPlatform != null)
+        if (currentPulpit != null)
         {
-            Vector3 spawnPosition = GetRandomAdjacentPosition(currentPlatform.transform.position);
-            nextPlatform = SpawnPlatform(spawnPosition);
+            Vector3 spawnPosition = GetRandomAdjacentPosition(currentPulpit.transform.position);
+            nextPulpit = SpawnPulpit(spawnPosition);
 
-            StartCoroutine(PlatformLifecycle(nextPlatform));
+            StartCoroutine(PulpitLifecycle(nextPulpit));
         }
 
         yield return new WaitForSeconds(spawnTime);
 
-        if (nextPlatform != null)
+        if (nextPulpit != null)
         {
-            currentPlatform = nextPlatform;
-            nextPlatform = null;
+            currentPulpit = nextPulpit;
+            nextPulpit = null;
             isSpawningNext = false;
         }
     }
@@ -103,10 +92,10 @@ public class PulpitManager : MonoBehaviour
     {
         Vector3[] directions = new Vector3[]
         {
-            new Vector3(platformXSize, 0, 0),
-            new Vector3(-platformXSize, 0, 0),
-            new Vector3(0, 0, platformZSize),
-            new Vector3(0, 0, -platformZSize)
+            new Vector3(pulpitXSize, 0, 0),
+            new Vector3(-pulpitXSize, 0, 0),
+            new Vector3(0, 0, pulpitZSize),
+            new Vector3(0, 0, -pulpitZSize)
         };
 
         Vector3 spawnDirection;
@@ -124,17 +113,16 @@ public class PulpitManager : MonoBehaviour
         return currentPos + spawnDirection;
     }
 
-    GameObject SpawnPlatform(Vector3 position)
+    GameObject SpawnPulpit(Vector3 position)
     {
-        GameObject platform = Instantiate(platformPrefab, position, Quaternion.identity);
+        GameObject pulpit = Instantiate(pulpitPrefab, position, Quaternion.identity);
 
-        // Set the platform's individual duration
-        PlatformTimer platformTimer = platform.GetComponent<PlatformTimer>();
+        PlatformTimer platformTimer = pulpit.GetComponent<PlatformTimer>();
         if (platformTimer != null)
         {
-            platformTimer.platformDuration = platformDuration;
+            platformTimer.platformDuration = pulpitDuration;
         }
 
-        return platform;
+        return pulpit;
     }
 }

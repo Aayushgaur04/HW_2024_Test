@@ -1183,11 +1183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750b27dbf3499e41ba388c86c0bb646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 5871104448440146321, guid: 64d7bb553da7eb645ab81820a574dce6, type: 3}
-  platformXSize: 9
-  platformZSize: 9
-  platformYSize: 0.2
-  platformDuration: 0
+  pulpitPrefab: {fileID: 5871104448440146321, guid: 64d7bb553da7eb645ab81820a574dce6, type: 3}
+  pulpitXSize: 9
+  pulpitZSize: 9
+  pulpitYSize: 0.2
+  pulpitDuration: 0
 --- !u!4 &1066678377
 Transform:
   m_ObjectHideFlags: 0
