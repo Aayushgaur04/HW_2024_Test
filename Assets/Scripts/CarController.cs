@@ -19,7 +19,9 @@ public class CarController : MonoBehaviour
         public Axel axel;
     }
 
-    public float maxAcceleration = 3.0f;
+    private JSONExtraction jsonExtraction;
+
+    public int maxAcceleration;
     public float brakeAcceleration = 20.0f;
 
     public float turnSensitivity = 1.0f;
@@ -36,8 +38,15 @@ public class CarController : MonoBehaviour
 
     void Start()
     {
+        
         carRb = GetComponent<Rigidbody>();
         carRb.centerOfMass = _centerOfMass;
+
+        jsonExtraction = FindObjectOfType<JSONExtraction>();
+
+        Data data = jsonExtraction.GetJsonData();
+
+        maxAcceleration = data.player_data.speed;
     }
 
     void Update()
@@ -63,7 +72,7 @@ public class CarController : MonoBehaviour
     {
         foreach (var wheel in wheels)
         {
-            wheel.wheelCollider.motorTorque = moveInput * 700 * maxAcceleration * Time.deltaTime;
+            wheel.wheelCollider.motorTorque = moveInput * 6000 * maxAcceleration * Time.deltaTime;
         }
     }
 
