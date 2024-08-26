@@ -36,9 +36,11 @@ public class CarController : MonoBehaviour
 
     private Rigidbody carRb;
 
+    public GameOverScreen GameOverScreen;
+
     void Start()
     {
-        
+
         carRb = GetComponent<Rigidbody>();
         carRb.centerOfMass = _centerOfMass;
 
@@ -53,6 +55,11 @@ public class CarController : MonoBehaviour
     {
         GetInputs();
         AnimateWheels();
+
+        if (transform.position.y < -10)
+        {
+            GameOver();
+        }
     }
 
     void LateUpdate()
@@ -116,5 +123,11 @@ public class CarController : MonoBehaviour
             wheel.wheelModel.transform.position = pos;
             wheel.wheelModel.transform.rotation = rot;
         }
+    }
+
+    void GameOver()
+    {
+        int finalScore = ScoreManager.instance.GetFinalScore();
+        GameOverScreen.setup(finalScore);
     }
 }

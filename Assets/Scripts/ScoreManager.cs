@@ -24,4 +24,9 @@ public class ScoreManager : MonoBehaviour
         score += 1;
         scoreText.text = "" + score;
     }
+
+    public int GetFinalScore()
+    {
+        return score;
+    }
 }
