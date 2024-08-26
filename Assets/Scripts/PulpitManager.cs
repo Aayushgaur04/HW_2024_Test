@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class PulpitManager : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class PulpitManager : MonoBehaviour
     private float spawnTime;
 
     private Vector3 previousDirection;
+
+    //[SerializeField] TextMeshPro timerText;
+    //float remainingTime;
 
     void Start()
     {
@@ -41,12 +45,20 @@ public class PulpitManager : MonoBehaviour
 
         platformDuration = Random.Range(minDestroyTime, maxDestroyTime);
 
+        //remainingTime = platformDuration;
+
         currentPlatform = SpawnPlatform(Vector3.zero);
         StartCoroutine(PlatformLifecycle(currentPlatform));
     }
 
     void Update()
     {
+        //remainingTime -= Time.deltaTime;
+        //if (timerText != null)
+        //{
+        //    timerText.text = remainingTime.ToString("F2");
+        //}
+
         if (currentPlatform != null && !isSpawningNext)
         {
             StartCoroutine(SpawnNextPlatform());
@@ -114,6 +126,15 @@ public class PulpitManager : MonoBehaviour
 
     GameObject SpawnPlatform(Vector3 position)
     {
-        return Instantiate(platformPrefab, position, Quaternion.identity);
+        GameObject platform = Instantiate(platformPrefab, position, Quaternion.identity);
+
+        // Set the platform's individual duration
+        PlatformTimer platformTimer = platform.GetComponent<PlatformTimer>();
+        if (platformTimer != null)
+        {
+            platformTimer.platformDuration = platformDuration;
+        }
+
+        return platform;
     }
 }
