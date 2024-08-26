@@ -18,6 +18,8 @@ public class PulpitManager : MonoBehaviour
     private float minDestroyTime;
     private float spawnTime;
 
+    private Vector3 previousDirection;
+
     void Start()
     {
         StartCoroutine(InitializeData());
@@ -27,13 +29,11 @@ public class PulpitManager : MonoBehaviour
     {
         jsonExtraction = FindObjectOfType<JSONExtraction>();
 
-        // Wait until the JSON data is fully loaded
         while (jsonExtraction.GetJsonData() == null)
         {
             yield return null;
         }
 
-        // Data is now loaded
         Data data = jsonExtraction.GetJsonData();
         minDestroyTime = data.pulpit_data.min_pulpit_destroy_time;
         maxDestroyTime = data.pulpit_data.max_pulpit_destroy_time;
@@ -41,7 +41,6 @@ public class PulpitManager : MonoBehaviour
 
         platformDuration = Random.Range(minDestroyTime, maxDestroyTime);
 
-        // Start platform spawning
         currentPlatform = SpawnPlatform(Vector3.zero);
         StartCoroutine(PlatformLifecycle(currentPlatform));
     }
@@ -98,8 +97,19 @@ public class PulpitManager : MonoBehaviour
             new Vector3(0, 0, -platformZSize)
         };
 
-        int randomIndex = Random.Range(0, directions.Length);
-        return currentPos + directions[randomIndex];
+        Vector3 spawnDirection;
+        int randomIndex;
+
+        do
+        {
+            randomIndex = Random.Range(0, directions.Length);
+            spawnDirection = directions[randomIndex];
+        }
+        while (spawnDirection == previousDirection);
+
+        previousDirection = spawnDirection;
+
+        return currentPos + spawnDirection;
     }
 
     GameObject SpawnPlatform(Vector3 position)

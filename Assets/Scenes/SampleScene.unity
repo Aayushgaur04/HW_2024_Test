@@ -370,8 +370,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833d9e4eab1f8d94eb9066c2f279ece7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 121460807}
-  smoothTime: 0
+  moveSmoothness: 5
+  rotSmoothness: 5
+  moveOffset: {x: 0, y: 13, z: -20}
+  rotOffset: {x: 0, y: 0, z: 0}
+  carTarget: {fileID: 121460807}
 --- !u!1 &1066678375
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +434,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3638911070570068518, guid: 0830086465bbffd4ab64ee6fc8c82d74, type: 3}
       propertyPath: m_Name
-      value: Simple Retro Car
+      value: Doofus
       objectReference: {fileID: 0}
     - target: {fileID: 3667211753972221885, guid: 0830086465bbffd4ab64ee6fc8c82d74, type: 3}
       propertyPath: m_LocalPosition.x
@@ -439,7 +442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3667211753972221885, guid: 0830086465bbffd4ab64ee6fc8c82d74, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.052
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3667211753972221885, guid: 0830086465bbffd4ab64ee6fc8c82d74, type: 3}
       propertyPath: m_LocalPosition.z

@@ -1,19 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private Vector3 _offset;
-    [SerializeField] private Transform target;
-    [SerializeField] private float smoothTime;
-    private Vector3 _currentVelocity = Vector3.zero;
+    public float moveSmoothness;
+    public float rotSmoothness;
 
-    private void Awake() => _offset = transform.position - target.position;
+    public Vector3 moveOffset;
+    public Vector3 rotOffset;
 
-    private void LateUpdate()
+    public Transform carTarget;
+
+    void FixedUpdate()
     {
-        Vector3 targetPosition = target.position + _offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothTime);
+        FollowTarget();
+    }
+
+    void FollowTarget()
+    {
+        HandleMovement();
+        HandleRotation();
+    }
+
+    void HandleMovement()
+    {
+        Vector3 targetPos = new Vector3();
+        targetPos = carTarget.TransformPoint(moveOffset);
+
+        transform.position = Vector3.Lerp(transform.position, targetPos, moveSmoothness * Time.deltaTime);
+    }
+
+    void HandleRotation()
+    {
+        var direction = carTarget.position - transform.position;
+        var rotation = new Quaternion();
+
+        rotation = Quaternion.LookRotation(direction + rotOffset, Vector3.up);
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotSmoothness * Time.deltaTime);
     }
 }
