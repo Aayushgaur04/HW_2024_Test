@@ -5,7 +5,7 @@ using UnityEngine;
 public class PulpitManager : MonoBehaviour {
 
     public GameObject platformPrefab;
-    public Transform player;
+    //public Transform player;
     public float platformXSize = 9f;
     public float platformZSize = 9f;
     public float platformYSize = 0.2f;
